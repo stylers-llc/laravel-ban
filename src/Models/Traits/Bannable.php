@@ -68,21 +68,19 @@ trait Bannable
      */
     public function ban(string $comment = null, \DateTimeInterface $expiredAt = null): BanInterface
     {
+        $banService = app(BanServiceInterface::class);
         $banBuilder = app(BanBuilderInterface::class);
         $banBuilder->setBannable($this);
 
-        if (auth()->user()) {
-            $banBuilder->setCreatedBy(auth()->user());
+        if ($createdBy = auth()->user()) {
+            $banBuilder->setCreatedBy($createdBy);
         }
-
         if ($comment) {
             $banBuilder->setComment($comment);
         }
         if ($expiredAt) {
             $banBuilder->setExpiredAt($expiredAt);
         }
-
-        $banService = app(BanServiceInterface::class);
 
         return $banService->ban($banBuilder);
     }
@@ -93,6 +91,7 @@ trait Bannable
     public function unban(): ?Collection
     {
         $banService = app(BanServiceInterface::class);
+        
         return $banService->unban($this);
     }
 }
