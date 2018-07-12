@@ -102,6 +102,8 @@ abstract class TestCase extends BaseTestCase
      */
     private function setUpDatabase()
     {
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
         $this->artisan('migrate', ['--database' => 'testing']);
         $this->artisan('migrate', [
             '--database' => 'testing',
