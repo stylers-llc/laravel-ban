@@ -1,0 +1,59 @@
+{
+  "name": "stylers/laravel-ban",
+  "description": "Laravel Ban",
+  "homepage": "https://github.com/stylers-llc/laravel-ban",
+  "keywords": [
+    "stylers",
+    "laravel",
+    "ban"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "prefer-stable" : true,
+  "authors": [
+    {
+      "name": "Szilveszter Nagy",
+      "email": "developer@stylersonline.com",
+      "homepage": "http://stylers.hu"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.3",
+    "illuminate/support": "~5"
+  },
+  "require-dev": {
+    "mockery/mockery": "^1.1",
+    "orchestra/testbench": "^3.7",
+    "phpmd/phpmd": "^2.6",
+    "phpunit/phpunit": "^7.3"
+  },
+  "autoload": {
+    "classmap": [
+      "database",
+      "config"
+    ],
+    "psr-4": {
+      "Stylers\\LaravelBan\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Stylers\\LaravelBan\\Tests\\": "tests",
+      "Stylers\\LaravelBan\\Tests\\Fixtures\\": "tests/fixtures"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Stylers\\LaravelBan\\Providers\\BanServiceProvider"
+      ]
+    }
+  }
+}

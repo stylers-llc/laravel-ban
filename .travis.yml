@@ -1,0 +1,17 @@
+language: php
+
+php:
+    - 7.1.3
+
+before_install:
+    - travis_retry composer self-update
+
+install:
+    - travis_retry composer install --no-interaction --prefer-dist
+
+script:
+    - vendor/bin/phpunit --verbose
+    - vendor/bin/phpmd src text phpmd.xml --exclude src/database
+
+matrix:
+    fast_finish: true
