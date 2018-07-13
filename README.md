@@ -11,7 +11,7 @@ composer require stylers/laravel-ban
 
 You can publish the migration
 ```bash
-php artisan vendor:publish --provider Stylers\LaravelBan\Providers\BanServiceProvider --tag migrations
+php artisan vendor:publish --provider="Stylers\LaravelBan\Providers\BanServiceProvider" --tag="migrations"
 ```
 
 After the migration has been published, you can run the migrations
