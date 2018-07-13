@@ -11,7 +11,7 @@ composer require stylers/laravel-ban
 
 You can publish the migration
 ```bash
-php artisan vendor:publish --provider="Stylers\LaravelBan\Providers\BanServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Stylers\LaravelBan\Providers\BanServiceProvider"
 ```
 
 After the migration has been published, you can run the migrations
@@ -58,7 +58,27 @@ use Stylers\LaravelBan\Events\Banned;
 use Stylers\LaravelBan\Events\Unbanned;
 ```
 
+## Middleware for User
+* Update `$routeMiddleware` in `App\Http\Kernel.php`
+```php
+use Stylers\LaravelBan\Http\Middleware\CheckUserBan;
+
+protected $routeMiddleware = [
+    ...
+    'check_user_ban' => CheckUserBan::class,
+];
+```
+
+* Update your routes in `routes/` or `App\Providers\RouteServiceProvider`
+```php
+protected function mapWebRoutes()
+{
+    Route::middleware('web', 'check_user_ban')
+         ->namespace($this->namespace)
+         ->group(base_path('routes/web.php'));
+}
+``` 
+
 ## TODO
 - [ ] Release
-- [ ] Middleware for User
 - [ ] Publish on [Packagist](https://packagist.org/)
