@@ -30,7 +30,7 @@ class BanServiceProvider extends ServiceProvider
         ], 'migrations');
 
         $this->publishes([
-            __DIR__ . '/config' => config_path(),
+            __DIR__ . '/../../config' => config_path(),
         ], 'config');
 
         $this->app->make(BanInterface::class)->observe(new BanObserver());
