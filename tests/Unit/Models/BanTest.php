@@ -12,6 +12,29 @@ class BanTest extends TestCase
     /**
      * @test
      */
+    public function start_at_default_value_is_now()
+    {
+        $startAt = Carbon::now();
+        $ban = factory(Ban::class)->create();
+        $ban->refresh();
+
+        $this->assertEquals($startAt->format('YmdHis'), $ban->start_at->format('YmdHis'));
+    }
+
+    /**
+     * @test
+     */
+    public function end_at_default_value_is_null()
+    {
+        $ban = factory(Ban::class)->create();
+        $ban->refresh();
+
+        $this->assertNull($ban->end_at);
+    }
+
+    /**
+     * @test
+     */
     public function get_bannable_relation()
     {
         $ban = factory(Ban::class)->create();
@@ -41,7 +64,7 @@ class BanTest extends TestCase
     public function get_live_bans_but_not_exist()
     {
         factory(Ban::class, 5)->create([
-            'expired_at' => Carbon::now()->subWeek(),
+            'end_at' => Carbon::now()->subWeek(),
         ]);
 
         $query = app(Ban::class)->live();
@@ -56,11 +79,11 @@ class BanTest extends TestCase
         $count = 5;
 
         factory(Ban::class, $count * 2)->create([
-            'expired_at' => Carbon::now()->subWeek(), // expired
+            'end_at' => Carbon::now()->subWeek(), // expired
         ]);
 
         factory(Ban::class, $count)->create([
-            'expired_at' => Carbon::now()->addWeek(), // not expired
+            'end_at' => Carbon::now()->addWeek(), // not expired
         ]);
 
         $query = app(Ban::class)->live();
@@ -75,11 +98,11 @@ class BanTest extends TestCase
         $count = 5;
 
         factory(Ban::class, $count)->create([
-            'expired_at' => Carbon::now()->subWeek(), // expired
+            'end_at' => Carbon::now()->subWeek(), // expired
         ]);
 
         factory(Ban::class, $count * 2)->create([
-            'expired_at' => Carbon::now()->addWeek(), // not expired
+            'end_at' => Carbon::now()->addWeek(), // not expired
         ]);
 
         $query = app(Ban::class)->notLive();

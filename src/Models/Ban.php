@@ -24,7 +24,8 @@ class Ban extends Model implements BanInterface
      */
     protected $fillable = [
         'comment',
-        'expired_at'
+        'start_at',
+        'end_at'
     ];
 
     /**
@@ -33,7 +34,8 @@ class Ban extends Model implements BanInterface
      * @var array
      */
     protected $casts = [
-        'expired_at' => 'datetime',
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
     ];
 
     /**
@@ -60,7 +62,11 @@ class Ban extends Model implements BanInterface
     {
         $dateTime = Carbon::now();
 
-        return $query->where('expired_at', '>=', $dateTime)->orWhereNull('expired_at');
+        return $query
+            ->where('start_at', '<=', $dateTime)
+            ->where(function ($query) use ($dateTime) {
+                $query->where('end_at', '>=', $dateTime)->orWhereNull('end_at');
+            });
     }
 
     /**
@@ -71,7 +77,7 @@ class Ban extends Model implements BanInterface
     {
         $dateTime = Carbon::now();
 
-        return $query->where('expired_at', '<', $dateTime)->whereNotNull('expired_at');
+        return $query->where('end_at', '<', $dateTime)->whereNotNull('end_at');
     }
 
     /**

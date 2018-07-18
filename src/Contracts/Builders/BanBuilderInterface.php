@@ -47,8 +47,14 @@ interface BanBuilderInterface
     public function setComment(string $comment);
 
     /**
-     * @param \DateTimeInterface $expiredAt
+     * @param \DateTimeInterface $startAt
      * @return mixed
      */
-    public function setExpiredAt(\DateTimeInterface $expiredAt);
+    public function setStartAt(\DateTimeInterface $startAt);
+
+    /**
+     * @param \DateTimeInterface $endAt
+     * @return mixed
+     */
+    public function setEndAt(\DateTimeInterface $endAt);
 }

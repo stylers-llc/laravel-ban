@@ -38,7 +38,12 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
     /**
      * @var \DateTimeInterface
      */
-    private $expiredAt = null;
+    private $startAt;
+
+    /**
+     * @var \DateTimeInterface
+     */
+    private $endAt = null;
 
     /**
      * BanBuilder constructor.
@@ -54,9 +59,12 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
     public function build(): BanInterface
     {
         $this->ban->bannable()->associate($this->bannable);
-        $this->ban->expired_at = $this->expiredAt;
+        $this->ban->end_at = $this->endAt;
         $this->ban->comment = $this->comment;
 
+        if ($this->startAt) {
+            $this->ban->start_at = $this->startAt;
+        }
         if ($this->createdBy) {
             $this->ban->createdBy()->associate($this->createdBy);
         }
@@ -107,10 +115,18 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
     }
 
     /**
-     * @param \DateTimeInterface $expiredAt
+     * @param \DateTimeInterface $startAt
      */
-    public function setExpiredAt(\DateTimeInterface $expiredAt): void
+    public function setStartAt(\DateTimeInterface $startAt): void
     {
-        $this->expiredAt = $expiredAt;
+        $this->startAt = $startAt;
+    }
+
+    /**
+     * @param \DateTimeInterface $endAt
+     */
+    public function setEndAt(\DateTimeInterface $endAt): void
+    {
+        $this->endAt = $endAt;
     }
 }

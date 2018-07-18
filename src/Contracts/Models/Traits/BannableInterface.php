@@ -42,10 +42,11 @@ interface BannableInterface
 
     /**
      * @param string|null $comment
-     * @param \DateTimeInterface|null $expiredAt
+     * @param \DatetimeInterface $startAt
+     * @param \DateTimeInterface|null $endAt
      * @return BanInterface
      */
-    public function ban(string $comment = null, \DateTimeInterface $expiredAt = null): BanInterface;
+    public function ban(string $comment = null, \DatetimeInterface $startAt = null, \DateTimeInterface $endAt = null): BanInterface;
 
     /**
      * @return Collection|null

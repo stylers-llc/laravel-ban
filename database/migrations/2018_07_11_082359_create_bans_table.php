@@ -18,7 +18,8 @@ class CreateBansTable extends Migration
             $table->morphs('bannable');
             $table->nullableMorphs('created_by');
             $table->text('comment')->nullable();
-            $table->dateTime('expired_at')->nullable();
+            $table->timestamp('start_at')->default(date('Y-m-d H:i:s'));
+            $table->timestamp('end_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -18,13 +18,13 @@ class BanBuilderTest extends TestCase
         $createdBy = factory(User::class)->create();
         $bannable = factory(User::class)->create();
         $comment = str_random();
-        $expiredAt = Carbon::now()->addWeek();
+        $endAt = Carbon::now()->addWeek();
 
         $builder = app(BanBuilderInterface::class);
         $builder->setCreatedBy($createdBy);
         $builder->setBannable($bannable);
         $builder->setComment($comment);
-        $builder->setExpiredAt($expiredAt);
+        $builder->setendAt($endAt);
         $builder->build();
 
         $this->assertDatabaseHas('bans', [
@@ -33,7 +33,7 @@ class BanBuilderTest extends TestCase
             'comment' => $comment,
             'created_by_type' => get_class($createdBy),
             'created_by_id' => $createdBy->id,
-            'expired_at' => $expiredAt->format('Y-m-d H:i:s'),
+            'end_at' => $endAt->format('Y-m-d H:i:s'),
         ]);
     }
 
@@ -46,20 +46,20 @@ class BanBuilderTest extends TestCase
 
         $createdBy = factory(User::class)->create();
         $comment = str_random();
-        $expiredAt = Carbon::now()->addYear();
+        $endAt = Carbon::now()->addYear();
 
         $builder = app(BanBuilderInterface::class);
         $builder->setBan($ban);
         $builder->setCreatedBy($createdBy);
         $builder->setBannable($ban->bannable);
         $builder->setComment($comment);
-        $builder->setExpiredAt($expiredAt);
+        $builder->setendAt($endAt);
         $builder->build();
 
         $this->assertNotNull($ban->created_by_type);
         $this->assertNotNull($ban->created_by_id);
         $this->assertEquals($comment, $ban->comment);
-        $this->assertEquals($expiredAt->format('YmdHis'), $ban->expired_at->format('YmdHis'));
+        $this->assertEquals($endAt->format('YmdHis'), $ban->end_at->format('YmdHis'));
 
         $this->assertDatabaseHas('bans', [
             'id' => $ban->id,

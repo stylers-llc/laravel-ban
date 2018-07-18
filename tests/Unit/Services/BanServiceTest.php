@@ -19,13 +19,13 @@ class BanServiceTest extends TestCase
         $createdBy = factory(User::class)->create();
         $bannable = factory(User::class)->create();
         $comment = str_random();
-        $expiredAt = Carbon::now()->addWeek();
+        $endAt = Carbon::now()->addWeek();
 
         $banBuilder = app(BanBuilderInterface::class);
         $banBuilder->setCreatedBy($createdBy);
         $banBuilder->setBannable($bannable);
         $banBuilder->setComment($comment);
-        $banBuilder->setExpiredAt($expiredAt);
+        $banBuilder->setendAt($endAt);
 
         $banService = app(BanServiceInterface::class);
         $ban = $banService->ban($banBuilder);
@@ -37,7 +37,7 @@ class BanServiceTest extends TestCase
             'comment' => $comment,
             'created_by_type' => get_class($createdBy),
             'created_by_id' => $createdBy->id,
-            'expired_at' => $expiredAt->format('Y-m-d H:i:s'),
+            'end_at' => $endAt->format('Y-m-d H:i:s'),
         ]);
     }
 
