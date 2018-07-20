@@ -18,43 +18,70 @@ interface BanBuilderInterface
     public function build(): BanInterface;
 
     /**
-     * @return BanInterface
-     */
-    public function getBan(): BanInterface;
-
-    /**
      * @param BanInterface $ban
      * @return mixed
      */
-    public function setBan(BanInterface $ban);
+    public function setBan(BanInterface $ban): BanBuilderInterface;
 
     /**
      * @param BannableInterface $bannable
      * @return mixed
      */
-    public function setBannable(BannableInterface $bannable);
+    public function setBannable(BannableInterface $bannable): BanBuilderInterface;
 
     /**
-     * @param Model $createdBy
-     * @return mixed
+     * @param Model|null $createdBy
+     * @return BanBuilderInterface
      */
-    public function setCreatedBy(Model $createdBy);
+    public function setCreatedBy(?Model $createdBy): BanBuilderInterface;
 
     /**
      * @param string $comment
      * @return mixed
      */
-    public function setComment(string $comment);
+    public function setComment(?string $comment): BanBuilderInterface;
 
     /**
      * @param \DateTimeInterface $startAt
      * @return mixed
      */
-    public function setStartAt(\DateTimeInterface $startAt);
+    public function setStartAt(\DateTimeInterface $startAt): BanBuilderInterface;
 
     /**
-     * @param \DateTimeInterface $endAt
-     * @return mixed
+     * @param \DateTimeInterface|null $endAt
+     * @return BanBuilderInterface
      */
-    public function setEndAt(\DateTimeInterface $endAt);
+    public function setEndAt(?\DateTimeInterface $endAt): BanBuilderInterface;
+
+    /**
+     * @return BanInterface
+     */
+    public function getBan(): BanInterface;
+
+    /**
+     * @return BannableInterface
+     */
+    public function getBannable(): BannableInterface;
+
+    /**
+     * @return Model|null
+     */
+    public function getCreatedBy(): ?Model;
+
+    /**
+     * @return null|string
+     */
+    public function getComment(): ?string;
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getStartAt(): ?\DateTimeInterface;
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getEndAt(): ?\DateTimeInterface;
+
+
 }

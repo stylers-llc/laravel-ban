@@ -22,10 +22,12 @@ class BanServiceTest extends TestCase
         $endAt = Carbon::now()->addWeek();
 
         $banBuilder = app(BanBuilderInterface::class);
-        $banBuilder->setCreatedBy($createdBy);
-        $banBuilder->setBannable($bannable);
-        $banBuilder->setComment($comment);
-        $banBuilder->setendAt($endAt);
+        $banBuilder
+            ->setCreatedBy($createdBy)
+            ->setBannable($bannable)
+            ->setComment($comment)
+            ->setendAt($endAt)
+            ->build();
 
         $banService = app(BanServiceInterface::class);
         $ban = $banService->ban($banBuilder);

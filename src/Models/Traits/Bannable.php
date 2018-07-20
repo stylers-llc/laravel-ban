@@ -2,6 +2,7 @@
 
 namespace Stylers\LaravelBan\Models\Traits;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -75,20 +76,13 @@ trait Bannable
     {
         $banService = app(BanServiceInterface::class);
         $banBuilder = app(BanBuilderInterface::class);
-        $banBuilder->setBannable($this);
-
-        if ($createdBy = auth()->user()) {
-            $banBuilder->setCreatedBy($createdBy);
-        }
-        if ($comment) {
-            $banBuilder->setComment($comment);
-        }
-        if ($startAt) {
-            $banBuilder->setStartAt($startAt);
-        }
-        if ($endAt) {
-            $banBuilder->setEndAt($endAt);
-        }
+        $banBuilder
+            ->setBannable($this)
+            ->setCreatedBy(auth()->user() ?: null)
+            ->setComment($comment)
+            ->setStartAt($startAt ?: Carbon::now())
+            ->setEndAt($endAt)
+            ->build();
 
         return $banService->ban($banBuilder);
     }

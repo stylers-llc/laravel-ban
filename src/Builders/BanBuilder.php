@@ -2,6 +2,8 @@
 
 namespace Stylers\LaravelBan\Builders;
 
+use Carbon\Carbon;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Stylers\LaravelBan\Contracts\Models\BanInterface;
 use Stylers\LaravelBan\Contracts\Builders\BanBuilderInterface;
@@ -26,22 +28,22 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
     private $bannable;
 
     /**
-     * @var Model
+     * @var null|Model
      */
     private $createdBy = null;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $comment = null;
 
     /**
-     * @var \DateTimeInterface
+     * @var DateTimeInterface
      */
     private $startAt;
 
     /**
-     * @var \DateTimeInterface
+     * @var null|DateTimeInterface
      */
     private $endAt = null;
 
@@ -59,19 +61,72 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
     public function build(): BanInterface
     {
         $this->ban->bannable()->associate($this->bannable);
+        $this->ban->createdBy()->associate($this->createdBy);
+        $this->ban->start_at = $this->startAt ?: Carbon::now();
         $this->ban->end_at = $this->endAt;
         $this->ban->comment = $this->comment;
 
-        if ($this->startAt) {
-            $this->ban->start_at = $this->startAt;
-        }
-        if ($this->createdBy) {
-            $this->ban->createdBy()->associate($this->createdBy);
-        }
-
-        $this->ban->save();
-
         return $this->ban;
+    }
+
+    /**
+     * @param BanInterface $ban
+     * @return BanBuilder
+     */
+    public function setBan(BanInterface $ban): BanBuilderInterface
+    {
+        $this->ban = $ban;
+        return $this;
+    }
+
+    /**
+     * @param BannableInterface $bannable
+     * @return BanBuilder
+     */
+    public function setBannable(BannableInterface $bannable): BanBuilderInterface
+    {
+        $this->bannable = $bannable;
+        return $this;
+    }
+
+    /**
+     * @param Model|null $createdBy
+     * @return BanBuilder
+     */
+    public function setCreatedBy(?Model $createdBy): BanBuilderInterface
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    /**
+     * @param null|string $comment
+     * @return BanBuilder
+     */
+    public function setComment(?string $comment): BanBuilderInterface
+    {
+        $this->comment = $comment;
+        return $this;
+    }
+
+    /**
+     * @param DateTimeInterface $startAt
+     * @return BanBuilder
+     */
+    public function setStartAt(DateTimeInterface $startAt): BanBuilderInterface
+    {
+        $this->startAt = $startAt;
+        return $this;
+    }
+
+    /**
+     * @param DateTimeInterface|null $endAt
+     * @return BanBuilder
+     */
+    public function setEndAt(?DateTimeInterface $endAt): BanBuilderInterface
+    {
+        $this->endAt = $endAt;
+        return $this;
     }
 
     /**
@@ -83,50 +138,42 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
     }
 
     /**
-     * @param BanInterface $ban
+     * @return BannableInterface
      */
-    public function setBan(BanInterface $ban): void
+    public function getBannable(): BannableInterface
     {
-        $this->ban = $ban;
+        return $this->bannable;
     }
 
     /**
-     * @param BannableInterface $bannable
+     * @return Model|null
      */
-    public function setBannable(BannableInterface $bannable): void
+    public function getCreatedBy(): ?Model
     {
-        $this->bannable = $bannable;
+        return $this->createdBy;
     }
 
     /**
-     * @param Model $createdBy
+     * @return null|string
      */
-    public function setCreatedBy(Model $createdBy): void
+    public function getComment(): ?string
     {
-        $this->createdBy = $createdBy;
+        return $this->comment;
     }
 
     /**
-     * @param string $comment
+     * @return DateTimeInterface|null
      */
-    public function setComment(string $comment): void
+    public function getStartAt(): ?DateTimeInterface
     {
-        $this->comment = $comment;
+        return $this->startAt;
     }
 
     /**
-     * @param \DateTimeInterface $startAt
+     * @return DateTimeInterface|null
      */
-    public function setStartAt(\DateTimeInterface $startAt): void
+    public function getEndAt(): ?DateTimeInterface
     {
-        $this->startAt = $startAt;
-    }
-
-    /**
-     * @param \DateTimeInterface $endAt
-     */
-    public function setEndAt(\DateTimeInterface $endAt): void
-    {
-        $this->endAt = $endAt;
+        return $this->endAt;
     }
 }

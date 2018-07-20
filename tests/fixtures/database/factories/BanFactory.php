@@ -11,5 +11,6 @@ $factory->define(Ban::class, function (Faker $faker) {
     return [
         'bannable_type' => $bannable->getMorphClass(),
         'bannable_id' => $bannable->getKey(),
+        'start_at' => \Carbon\Carbon::now(),
     ];
 });

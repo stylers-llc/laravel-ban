@@ -20,7 +20,10 @@ class BanService implements BanServiceInterface
      */
     public function ban(BanBuilderInterface $banBuilder): BanInterface
     {
-        return $banBuilder->build();
+        $ban = $banBuilder->build();
+        $ban->save();
+
+        return $ban;
     }
 
     /**
