@@ -53,6 +53,7 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
     public function __construct()
     {
         $this->ban = app(BanInterface::class);
+        $this->startAt = Carbon::now();
     }
 
     /**
@@ -62,7 +63,7 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
     {
         $this->ban->bannable()->associate($this->bannable);
         $this->ban->createdBy()->associate($this->createdBy);
-        $this->ban->start_at = $this->startAt ?: Carbon::now();
+        $this->ban->start_at = $this->startAt;
         $this->ban->end_at = $this->endAt;
         $this->ban->comment = $this->comment;
 
@@ -164,7 +165,7 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
     /**
      * @return DateTimeInterface|null
      */
-    public function getStartAt(): ?DateTimeInterface
+    public function getStartAt(): DateTimeInterface
     {
         return $this->startAt;
     }
