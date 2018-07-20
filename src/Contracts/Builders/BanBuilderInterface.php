@@ -13,19 +13,25 @@ use Stylers\LaravelBan\Contracts\Models\Traits\BannableInterface;
 interface BanBuilderInterface
 {
     /**
+     * BanBuilderInterface constructor.
+     * @param BannableInterface $bannable
+     */
+    public function __construct(BannableInterface $bannable);
+
+    /**
      * @return BanInterface
      */
     public function build(): BanInterface;
 
     /**
      * @param BanInterface $ban
-     * @return mixed
+     * @return BanBuilderInterface
      */
     public function setBan(BanInterface $ban): BanBuilderInterface;
 
     /**
      * @param BannableInterface $bannable
-     * @return mixed
+     * @return BanBuilderInterface
      */
     public function setBannable(BannableInterface $bannable): BanBuilderInterface;
 
@@ -36,14 +42,14 @@ interface BanBuilderInterface
     public function setCreatedBy(?Model $createdBy): BanBuilderInterface;
 
     /**
-     * @param string $comment
-     * @return mixed
+     * @param null|string $comment
+     * @return BanBuilderInterface
      */
     public function setComment(?string $comment): BanBuilderInterface;
 
     /**
      * @param \DateTimeInterface $startAt
-     * @return mixed
+     * @return BanBuilderInterface
      */
     public function setStartAt(\DateTimeInterface $startAt): BanBuilderInterface;
 
@@ -74,14 +80,12 @@ interface BanBuilderInterface
     public function getComment(): ?string;
 
     /**
-     * @return \DateTimeInterface|null
+     * @return \DateTimeInterface
      */
-    public function getStartAt(): ?\DateTimeInterface;
+    public function getStartAt(): \DateTimeInterface;
 
     /**
      * @return \DateTimeInterface|null
      */
     public function getEndAt(): ?\DateTimeInterface;
-
-
 }

@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Stylers\LaravelBan\Builders\BanBuilder;
 use Stylers\LaravelBan\Contracts\Builders\BanBuilderInterface;
 use Stylers\LaravelBan\Contracts\Models\BanInterface;
+use Stylers\LaravelBan\Contracts\Models\Traits\BannableInterface;
 use Stylers\LaravelBan\Contracts\Services\BanServiceInterface;
 use Stylers\LaravelBan\Models\Ban;
 use Stylers\LaravelBan\Observers\BanObserver;

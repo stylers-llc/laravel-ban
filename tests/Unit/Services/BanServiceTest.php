@@ -21,10 +21,9 @@ class BanServiceTest extends TestCase
         $comment = str_random();
         $endAt = Carbon::now()->addWeek();
 
-        $banBuilder = app(BanBuilderInterface::class);
+        $banBuilder = app(BanBuilderInterface::class, ['bannable' => $bannable]);
         $banBuilder
             ->setCreatedBy($createdBy)
-            ->setBannable($bannable)
             ->setComment($comment)
             ->setendAt($endAt)
             ->build();
@@ -46,7 +45,7 @@ class BanServiceTest extends TestCase
     /**
      * @test
      */
-    public function i_can_unban()
+    public function it_can_unban()
     {
         $ban = factory(Ban::class)->create();
         $banService = app(BanServiceInterface::class);

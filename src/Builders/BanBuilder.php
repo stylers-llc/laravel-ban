@@ -14,46 +14,47 @@ use Stylers\LaravelBan\Contracts\Models\Traits\BannableInterface;
  * Class BanBuilder
  * @package Stylers\LaravelBan\Builders
  */
-class BanBuilder implements BuilderInterface, BanBuilderInterface
+class BanBuilder implements BanBuilderInterface
 {
-
     /**
      * @var BanInterface
      */
-    private $ban;
+    protected $ban;
 
     /**
      * @var BannableInterface
      */
-    private $bannable;
+    protected $bannable;
 
     /**
      * @var null|Model
      */
-    private $createdBy = null;
+    protected $createdBy = null;
 
     /**
      * @var string|null
      */
-    private $comment = null;
+    protected $comment = null;
 
     /**
      * @var DateTimeInterface
      */
-    private $startAt;
+    protected $startAt;
 
     /**
      * @var null|DateTimeInterface
      */
-    private $endAt = null;
+    protected $endAt = null;
 
     /**
      * BanBuilder constructor.
+     * @param BannableInterface $bannable
      */
-    public function __construct()
+    public function __construct(BannableInterface $bannable)
     {
         $this->ban = app(BanInterface::class);
         $this->startAt = Carbon::now();
+        $this->bannable = $bannable;
     }
 
     /**
@@ -72,7 +73,7 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
 
     /**
      * @param BanInterface $ban
-     * @return BanBuilder
+     * @return BanBuilderInterface
      */
     public function setBan(BanInterface $ban): BanBuilderInterface
     {
@@ -82,7 +83,7 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
 
     /**
      * @param BannableInterface $bannable
-     * @return BanBuilder
+     * @return BanBuilderInterface
      */
     public function setBannable(BannableInterface $bannable): BanBuilderInterface
     {
@@ -92,7 +93,7 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
 
     /**
      * @param Model|null $createdBy
-     * @return BanBuilder
+     * @return BanBuilderInterface
      */
     public function setCreatedBy(?Model $createdBy): BanBuilderInterface
     {
@@ -102,7 +103,7 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
 
     /**
      * @param null|string $comment
-     * @return BanBuilder
+     * @return BanBuilderInterface
      */
     public function setComment(?string $comment): BanBuilderInterface
     {
@@ -112,7 +113,7 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
 
     /**
      * @param DateTimeInterface $startAt
-     * @return BanBuilder
+     * @return BanBuilderInterface
      */
     public function setStartAt(DateTimeInterface $startAt): BanBuilderInterface
     {
@@ -122,7 +123,7 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
 
     /**
      * @param DateTimeInterface|null $endAt
-     * @return BanBuilder
+     * @return BanBuilderInterface
      */
     public function setEndAt(?DateTimeInterface $endAt): BanBuilderInterface
     {
@@ -163,7 +164,7 @@ class BanBuilder implements BuilderInterface, BanBuilderInterface
     }
 
     /**
-     * @return DateTimeInterface|null
+     * @return DateTimeInterface
      */
     public function getStartAt(): DateTimeInterface
     {

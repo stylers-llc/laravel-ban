@@ -20,7 +20,7 @@ class BanBuilderTest extends TestCase
         $comment = str_random();
         $endAt = Carbon::now()->addWeek();
 
-        $builder = app(BanBuilderInterface::class);
+        $builder = app(BanBuilderInterface::class, ['bannable' => $bannable]);
         $ban = $builder
             ->setCreatedBy($createdBy)
             ->setBannable($bannable)
@@ -41,11 +41,12 @@ class BanBuilderTest extends TestCase
      */
     public function it_can_set_ban()
     {
+        $bannable = factory(User::class)->create();
         $ban = factory(Ban::class)->create(['end_at' => Carbon::now()->addWeek()]);
 
         $createdBy = factory(User::class)->create();
         $comment = str_random();
-        $builder = app(BanBuilderInterface::class);
+        $builder = app(BanBuilderInterface::class, ['bannable' => $bannable]);
         $banBuilded = $builder
             ->setBan($ban)
             ->setCreatedBy($createdBy)
@@ -68,7 +69,7 @@ class BanBuilderTest extends TestCase
     public function it_can_get_ban()
     {
         $ban = factory(Ban::class)->create();
-        $builder = app(BanBuilderInterface::class);
+        $builder = app(BanBuilderInterface::class, ['bannable' => $ban->bannable]);
         $builder->setBan($ban);
 
         $this->assertEquals($ban, $builder->getBan());
@@ -80,8 +81,7 @@ class BanBuilderTest extends TestCase
     public function it_can_get_bannable()
     {
         $bannable = factory(User::class)->create();
-        $builder = app(BanBuilderInterface::class);
-        $builder->setBannable($bannable);
+        $builder = app(BanBuilderInterface::class, ['bannable' => $bannable]);
 
         $this->assertEquals($bannable, $builder->getBannable());
     }
@@ -91,7 +91,8 @@ class BanBuilderTest extends TestCase
      */
     public function it_can_get_created_by()
     {
-        $builder = app(BanBuilderInterface::class);
+        $bannable = factory(User::class)->create();
+        $builder = app(BanBuilderInterface::class, ['bannable' => $bannable]);
 
         $this->assertNull($builder->getCreatedBy());
 
@@ -106,7 +107,8 @@ class BanBuilderTest extends TestCase
      */
     public function it_can_get_comment()
     {
-        $builder = app(BanBuilderInterface::class);
+        $bannable = factory(User::class)->create();
+        $builder = app(BanBuilderInterface::class, ['bannable' => $bannable]);
 
         $this->assertNull($builder->getComment());
 
@@ -121,14 +123,11 @@ class BanBuilderTest extends TestCase
      */
     public function it_can_get_start_at()
     {
-        $builder = app(BanBuilderInterface::class);
+        $bannable = factory(User::class)->create();
+        $dateTime = Carbon::now();
+        $builder = app(BanBuilderInterface::class, ['bannable' => $bannable]);
 
-        $this->assertNull($builder->getStartAt());
-
-        $startAt = Carbon::now();
-        $builder->setStartAt($startAt);
-
-        $this->assertEquals($startAt, $builder->getStartAt());
+        $this->assertEquals($dateTime->format('YmdHis'), $builder->getStartAt()->format('YmdHis'));
     }
 
     /**
@@ -136,7 +135,8 @@ class BanBuilderTest extends TestCase
      */
     public function it_can_get_end_at()
     {
-        $builder = app(BanBuilderInterface::class);
+        $bannable = factory(User::class)->create();
+        $builder = app(BanBuilderInterface::class, ['bannable' => $bannable]);
 
         $this->assertNull($builder->getEndAt());
 

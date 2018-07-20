@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Stylers\LaravelBan\Builders\BanBuilder;
 use Stylers\LaravelBan\Contracts\Builders\BanBuilderInterface;
 use Stylers\LaravelBan\Contracts\Models\BanInterface;
 use Stylers\LaravelBan\Contracts\Services\BanServiceInterface;
@@ -75,9 +76,8 @@ trait Bannable
     ): BanInterface
     {
         $banService = app(BanServiceInterface::class);
-        $banBuilder = app(BanBuilderInterface::class);
+        $banBuilder = app(BanBuilderInterface::class, ['bannable' => $this]);
         $banBuilder
-            ->setBannable($this)
             ->setCreatedBy(auth()->user() ?: null)
             ->setComment($comment)
             ->setStartAt($startAt ?: Carbon::now())
