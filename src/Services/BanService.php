@@ -28,9 +28,9 @@ class BanService implements BanServiceInterface
 
     /**
      * @param BannableInterface $bannable
-     * @return Collection|null
+     * @return Collection
      */
-    public function unban(BannableInterface $bannable): ?Collection
+    public function unban(BannableInterface $bannable): Collection
     {
         return $bannable->bans()->live()->get()->each(function ($ban) {
             $ban->delete();

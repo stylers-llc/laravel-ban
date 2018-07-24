@@ -22,7 +22,7 @@ interface BanServiceInterface
 
     /**
      * @param BannableInterface $bannnable
-     * @return Collection|null
+     * @return Collection
      */
-    public function unban(BannableInterface $bannnable): ?Collection;
+    public function unban(BannableInterface $bannnable): Collection;
 }

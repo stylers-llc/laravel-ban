@@ -2,6 +2,7 @@
 
 namespace Stylers\LaravelBan\Tests\Unit\Models\Traits;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 use Stylers\LaravelBan\Models\Ban;
 use Stylers\LaravelBan\Tests\Fixtures\Models\User;
@@ -234,8 +235,9 @@ class BannableTest extends TestCase
     public function it_can_unban_without_bans()
     {
         $bannable = factory(User::class)->create();
-        $bannable->unban();
+        $unbans = $bannable->unban();
 
+        $this->assertEquals(Collection::class, get_class($unbans));
         $this->assertEquals(0, $bannable->isBanned());
     }
 

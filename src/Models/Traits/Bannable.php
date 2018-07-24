@@ -88,9 +88,9 @@ trait Bannable
     }
 
     /**
-     * @return Collection|null
+     * @return Collection
      */
-    public function unban(): ?Collection
+    public function unban(): Collection
     {
         $banService = app(BanServiceInterface::class);
 

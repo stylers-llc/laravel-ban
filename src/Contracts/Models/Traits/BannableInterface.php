@@ -49,7 +49,7 @@ interface BannableInterface
     public function ban(string $comment = null, \DatetimeInterface $startAt = null, \DateTimeInterface $endAt = null): BanInterface;
 
     /**
-     * @return Collection|null
+     * @return Collection
      */
-    public function unban(): ?Collection;
+    public function unban(): Collection;
 }
