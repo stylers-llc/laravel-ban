@@ -62,43 +62,6 @@ class BannableTest extends TestCase
         $this->assertTrue($ban->bannable->isBanned());
     }
 
-    /**
-     * @test
-     */
-    public function check_is_not_banned_but_expired()
-    {
-        $ban = factory(Ban::class)->create([
-            'end_at' => Carbon::now()->subWeek()
-        ]);
-
-        $this->assertTrue($ban->bannable->isNotBanned());
-    }
-
-    /**
-     * @test
-     */
-    public function check_is_not_banned_but_not_start()
-    {
-        $ban = factory(Ban::class)->create([
-            'start_at' => Carbon::now()->addWeek(),
-            'end_at' => Carbon::now()->addWeeks(2)
-        ]);
-
-        $this->assertTrue($ban->bannable->isNotBanned());
-    }
-
-    /**
-     * @test
-     */
-    public function check_is_not_banned()
-    {
-        $ban = factory(Ban::class)->create([
-            'end_at' => Carbon::now()->addWeek()
-        ]);
-
-        $this->assertFalse($ban->bannable->isNotBanned());
-    }
-
 
     /**
      * @test

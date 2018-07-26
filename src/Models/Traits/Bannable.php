@@ -34,14 +34,6 @@ trait Bannable
     }
 
     /**
-     * @return bool
-     */
-    public function isNotBanned(): bool
-    {
-        return !$this->isBanned();
-    }
-
-    /**
      * @param Builder $query
      * @return Builder
      */

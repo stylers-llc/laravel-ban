@@ -24,11 +24,6 @@ interface BannableInterface
     public function isBanned(): bool;
 
     /**
-     * @return bool
-     */
-    public function isNotBanned(): bool;
-
-    /**
      * @param Builder $query
      * @return mixed
      */
