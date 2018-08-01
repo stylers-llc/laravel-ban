@@ -42,8 +42,9 @@ $comment = "Reason of ban."; // ?string
 $startAt = Carbon::addWeek(); // ?DateTimeInterface
 $endAt = Carbon::now()->addWeeks(2); // ?DateTimeInterface
 
-$ban = $user->ban(); // Ban without comment and timestamps (start_at, end_at)
+$ban = $user->ban(); // Ban without comment and timestamps (start_at, end_at) - never expire
 $ban = $user->ban($comment, null, $endAt); // Ban for 2 weeks with comment
+$ban = $user->ban($comment); // Ban without expire
 $ban = $user->ban($comment, $startAt, $endAt); // Ban for a week with comment from next week
 ```
 
