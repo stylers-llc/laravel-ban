@@ -81,7 +81,3 @@ protected function mapWebRoutes()
          ->group(base_path('routes/web.php'));
 }
 ``` 
-
-## TODO
-- [ ] Release
-- [ ] Publish on [Packagist](https://packagist.org/)
