@@ -1,8 +1,9 @@
 # Laravel Ban
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/stylers/laravel-ban.svg?style=flat)](https://packagist.org/packages/stylers/laravel-ban)
-[![Total Downloads](https://img.shields.io/packagist/dt/stylers/laravel-ban.svg?style=flat)](https://packagist.org/packages/stylers/laravel-ban)
-[![Build Status](https://travis-ci.org/stylers-llc/laravel-ban.svg?branch=master)](https://travis-ci.org/stylers-llc/laravel-ban)
+[![Latest Stable Version](https://poser.pugx.org/stylers/laravel-ban/version)](https://packagist.org/packages/stylers/laravel-ban) 
+[![Total Downloads](https://poser.pugx.org/stylers/laravel-ban/downloads)](https://packagist.org/packages/stylers/laravel-ban) 
+[![License](https://poser.pugx.org/stylers/laravel-ban/license)](https://packagist.org/packages/stylers/laravel-ban) 
+[![Build Status](https://travis-ci.org/stylers-llc/laravel-ban.svg?branch=master)](https://travis-ci.org/stylers-llc/laravel-ban) 
 
 ## Requirements
 - PHP >= 7.1.3
