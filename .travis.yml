@@ -10,8 +10,11 @@ install:
     - travis_retry composer install --no-interaction --prefer-dist
 
 script:
-    - vendor/bin/phpunit --verbose
+    - vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
     - vendor/bin/phpmd src text phpmd.xml --exclude src/database
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
 
 matrix:
     fast_finish: true
