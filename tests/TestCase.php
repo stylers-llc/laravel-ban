@@ -9,7 +9,7 @@ use Illuminate\Contracts\Console\Kernel;
 
 /**
  * Class TestCase
- * @package T1k3\LaravelCalendarEvent\Tests
+ * @package Stylers\LaravelBan\Tests
  */
 abstract class TestCase extends BaseTestCase
 {
