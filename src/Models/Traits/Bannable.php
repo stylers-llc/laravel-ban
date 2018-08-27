@@ -50,9 +50,9 @@ trait Bannable
      */
     public function scopeNotBanned(Builder $query)
     {
-        $bannedUserIds = $this->banned()->pluck('id')->toArray();
+        $bannedIds = $this->banned()->pluck('id')->toArray();
 
-        return $query->whereNotIn('id', $bannedUserIds);
+        return $query->whereNotIn('id', $bannedIds);
     }
 
     /**
