@@ -5,7 +5,6 @@
 [![License](https://poser.pugx.org/stylers/laravel-ban/license)](https://packagist.org/packages/stylers/laravel-ban) 
 [![Build Status](https://travis-ci.org/stylers-llc/laravel-ban.svg?branch=master)](https://travis-ci.org/stylers-llc/laravel-ban) 
 [![codecov](https://codecov.io/gh/stylers-llc/laravel-ban/branch/master/graph/badge.svg)](https://codecov.io/gh/stylers-llc/laravel-ban) 
-
 [![Maintainability](https://api.codeclimate.com/v1/badges/ed5dbec66cac2d9b5d73/maintainability)](https://codeclimate.com/github/stylers-llc/laravel-ban/maintainability)
 
 ## Requirements
