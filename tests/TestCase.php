@@ -24,7 +24,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Setup
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -35,7 +35,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Teardown
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->consoleOutput = '';
         $this->artisan('migrate:reset');
