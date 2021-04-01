@@ -3,6 +3,7 @@
 namespace Stylers\LaravelBan\Tests\Unit\Services;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Stylers\LaravelBan\Contracts\Builders\BanBuilderInterface;
 use Stylers\LaravelBan\Contracts\Services\BanServiceInterface;
 use Stylers\LaravelBan\Models\Ban;
@@ -18,7 +19,7 @@ class BanServiceTest extends TestCase
     {
         $createdBy = factory(User::class)->create();
         $bannable = factory(User::class)->create();
-        $comment = str_random();
+        $comment = Str::random();
         $endAt = Carbon::now()->addWeek();
 
         $banBuilder = app(BanBuilderInterface::class, ['bannable' => $bannable]);
