@@ -4,6 +4,7 @@ namespace Stylers\LaravelBan\Tests\Unit\Models\Traits;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Stylers\LaravelBan\Models\Ban;
 use Stylers\LaravelBan\Tests\Fixtures\Models\User;
 use Stylers\LaravelBan\Tests\TestCase;
@@ -84,7 +85,7 @@ class BannableTest extends TestCase
     public function it_can_ban_without_timestamps()
     {
         $bannable = factory(User::class)->create();
-        $comment = str_random();
+        $comment = Str::random();
         $startAt = Carbon::now();
         $bannable->ban($comment);
 
@@ -100,7 +101,7 @@ class BannableTest extends TestCase
     public function it_can_ban_without_and_at()
     {
         $bannable = factory(User::class)->create();
-        $comment = str_random();
+        $comment = Str::random();
         $startAt = Carbon::now();
         $bannable->ban($comment, $startAt);
 
@@ -149,7 +150,7 @@ class BannableTest extends TestCase
         $bannable = factory(User::class)->create();
         $startAt = Carbon::now()->addWeek();
         $endAt = Carbon::now()->addMonth();
-        $comment = str_random();
+        $comment = Str::random();
         $bannable->ban($comment, $startAt, $endAt);
 
         $this->assertEquals(1, $bannable->bans()->count());
@@ -168,7 +169,7 @@ class BannableTest extends TestCase
 
         $bannable = factory(User::class)->create();
         $endAt = Carbon::now()->addMonth();
-        $comment = str_random();
+        $comment = Str::random();
         $bannable->ban($comment, null, $endAt);
 
         $this->assertEquals(1, $bannable->bans()->count());

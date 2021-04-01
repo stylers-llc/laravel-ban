@@ -3,6 +3,7 @@
 namespace Stylers\LaravelBan\Tests\Unit\Builders;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Stylers\LaravelBan\Contracts\Builders\BanBuilderInterface;
 use Stylers\LaravelBan\Models\Ban;
 use Stylers\LaravelBan\Tests\Fixtures\Models\User;
@@ -17,7 +18,7 @@ class BanBuilderTest extends TestCase
     {
         $createdBy = factory(User::class)->create();
         $bannable = factory(User::class)->create();
-        $comment = str_random();
+        $comment = Str::random();
         $endAt = Carbon::now()->addWeek();
 
         $builder = app(BanBuilderInterface::class, ['bannable' => $bannable]);
@@ -45,7 +46,7 @@ class BanBuilderTest extends TestCase
         $ban = factory(Ban::class)->create(['end_at' => Carbon::now()->addWeek()]);
 
         $createdBy = factory(User::class)->create();
-        $comment = str_random();
+        $comment = Str::random();
         $builder = app(BanBuilderInterface::class, ['bannable' => $bannable]);
         $banBuilded = $builder
             ->setBan($ban)
@@ -112,7 +113,7 @@ class BanBuilderTest extends TestCase
 
         $this->assertNull($builder->getComment());
 
-        $comment = str_random();
+        $comment = Str::random();
         $builder->setComment($comment);
 
         $this->assertEquals($comment, $builder->getComment());
