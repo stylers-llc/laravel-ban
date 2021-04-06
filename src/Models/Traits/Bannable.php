@@ -25,12 +25,18 @@ trait Bannable
         return $this->morphMany(app(BanInterface::class), 'bannable');
     }
 
+    // This relation makes scoped relation to eager loadable
+    public function liveBans(): MorphMany
+    {
+        return $this->bans()->live();
+    }
+
     /**
      * @return bool
      */
     public function isBanned(): bool
     {
-        return (bool)$this->bans()->live()->first();
+        return (bool)$this->liveBans->first();
     }
 
     /**
