@@ -21,14 +21,14 @@
   ],
   "require": {
     "php": ">=7.3",
-    "illuminate/broadcasting": "~6",
-    "illuminate/database": "~6",
-    "illuminate/queue": "~6",
-    "illuminate/support": "~6"
+    "illuminate/broadcasting": "~7",
+    "illuminate/database": "~7",
+    "illuminate/queue": "~7",
+    "illuminate/support": "~7"
   },
   "require-dev": {
     "mockery/mockery": "^1.1",
-    "orchestra/testbench": "~3.0|~3.6|~3.7|~4.0",
+    "orchestra/testbench": "^5.0",
     "phpmd/phpmd": "^2.6",
     "phpunit/phpunit": "^7.5.15 || ^8.4 || ^9.5.4"
   },
