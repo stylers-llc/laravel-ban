@@ -1,34 +1,37 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Stylers\LaravelBan\Tests\Unit\Events;
 
 use Stylers\LaravelBan\Events\Unbanned;
 use Stylers\LaravelBan\Models\Ban;
 use Stylers\LaravelBan\Tests\TestCase;
+use Illuminate\Support\Facades\Event;
 
 class UnbannedTest extends TestCase
 {
     /**
      * @test
-     * @throws \Exception
      */
-    public function it_can_fire_event()
+    public function it_can_fire_event(): void
     {
-        $this->expectsEvents(Unbanned::class);
+        Event::fake(Unbanned::class);
 
         $ban = factory(Ban::class)->create();
         $ban->delete();
+
+        Event::assertDispatched(Unbanned::class);
     }
 
     /**
      * @test
-     * @throws \Exception
      */
-    public function it_can_fire_event_where_ban()
+    public function it_can_fire_event_where_ban(): void
     {
-        $this->expectsEvents(Unbanned::class);
+        Event::fake(Unbanned::class);
 
         $ban = factory(Ban::class)->create();
         $ban->bannable->unban();
+
+        Event::assertDispatched(Unbanned::class);
     }
 }
