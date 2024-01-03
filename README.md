@@ -8,8 +8,8 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/ed5dbec66cac2d9b5d73/maintainability)](https://codeclimate.com/github/stylers-llc/laravel-ban/maintainability)
 
 ## Requirements
-- PHP >= 7.1.3
-- Laravel ~5.x
+- PHP >= 8.1
+- Laravel ~10.x
 
 ## Installation
 ```bash
